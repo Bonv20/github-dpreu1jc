@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Dimensions, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
-import { Brain, Dumbbell as Numbers, Type, Palette, Grid2x2 as Grid, Calculator } from 'lucide-react-native';
+import { Brain, Dumbbell as Numbers, Type, Palette, Grid2x2 as Grid, Calculator, Shuffle } from 'lucide-react-native';
 import { NumberMemoryGame } from '../../components/games/number-memory';
 import { WordMemoryGame } from '../../components/games/word-memory';
 import { StroopChallengeGame } from '../../components/games/stroop-challenge';
 import { PatternMemoryGame } from '../../components/games/pattern-memory';
 import { MathBlitzGame } from '../../components/games/math-blitz';
+import { AnagramsGame } from '../../components/games/anagrams';
 
 const { width } = Dimensions.get('window');
 
-type GameType = 'numbers' | 'words' | 'stroop' | 'pattern' | 'math' | null;
+type GameType = 'numbers' | 'words' | 'stroop' | 'pattern' | 'math' | 'anagrams' | null;
 
 const GAMES_BANNER = 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
@@ -76,6 +77,16 @@ const GAMES: GameCard[] = [
     image: 'https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     difficulty: 'Medium',
     timeLimit: '60 sec'
+  },
+  {
+    id: 'anagrams',
+    title: 'Anagrams',
+    description: 'Find words made from the same letters',
+    icon: <Shuffle size={32} color="#ffffff" />,
+    gradient: ['#8B5CF6', '#6366F1'],
+    image: 'https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    difficulty: 'Medium',
+    timeLimit: '60 sec'
   }
 ];
 
@@ -87,6 +98,7 @@ export default function GamesScreen() {
   if (selectedGame === 'stroop') return <StroopChallengeGame />;
   if (selectedGame === 'pattern') return <PatternMemoryGame />;
   if (selectedGame === 'math') return <MathBlitzGame />;
+  if (selectedGame === 'anagrams') return <AnagramsGame />;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -161,93 +173,118 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f9fa',
   },
   heroBanner: {
+    width: '100%',
     height: 200,
-    justifyContent: 'flex-end',
     overflow: 'hidden',
+    borderRadius: 12,
+    marginBottom: 20,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bannerImage: {
     position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
   bannerContent: {
+    position: 'relative',
     padding: 20,
+    alignItems: 'center',
   },
   bannerTitle: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 8,
+    textShadowColor: 'rgba(0,0,0,0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   bannerSubtitle: {
     fontSize: 16,
     color: '#ffffff',
     opacity: 0.9,
+    textShadowColor: 'rgba(0,0,0,0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   gamesContainer: {
-    padding: 16,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: 4,
   },
   gameCardWrapper: {
+    width: '48%',
     marginBottom: 16,
   },
   gameCard: {
-    borderRadius: 16,
+    position: 'relative',
     overflow: 'hidden',
-    backgroundColor: '#ffffff',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
+    borderRadius: 12,
+    height: 200,
   },
   gameImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
-    height: 150,
+    height: '100%',
+    resizeMode: 'cover',
   },
   gameContent: {
-    flexDirection: 'row',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
     padding: 16,
+    justifyContent: 'space-between',
   },
   gameIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
   },
   gameInfo: {
-    flex: 1,
+    alignItems: 'flex-start',
   },
   gameTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#ffffff',
-    marginBottom: 4,
+    marginBottom: 8,
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   gameDescription: {
     fontSize: 14,
     color: '#ffffff',
-    opacity: 0.9,
-    marginBottom: 12,
+    marginBottom: 8,
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   gameMetrics: {
     flexDirection: 'row',
     gap: 8,
   },
   metricBadge: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 6,
     paddingVertical: 4,
-    paddingHorizontal: 12,
-    borderRadius: 12,
+    paddingHorizontal: 8,
   },
   metricText: {
-    color: '#ffffff',
     fontSize: 12,
-    fontWeight: '500',
+    color: '#ffffff',
   },
 });

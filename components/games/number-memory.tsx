@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutUp } from 'react-native-reanimated';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { ArrowLeft, Brain, Timer, Target, Heart } from 'lucide-react-native';
+import { Brain, Timer, Target, Heart } from 'lucide-react-native';
+import { BackButton } from '../ui/back-button';
 
 const getRandomNumber = (length: number) => {
   return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
@@ -88,6 +89,7 @@ export function NumberMemoryGame() {
           colors={['#0088ff', '#00c6ff']}
           style={styles.gradient}
         >
+          <BackButton />
           <Animated.View 
             entering={SlideInDown.duration(1000)}
             style={styles.content}
@@ -130,6 +132,7 @@ export function NumberMemoryGame() {
         colors={['#0088ff', '#00c6ff']}
         style={styles.gradient}
       >
+        <BackButton />
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={styles.statsRow}>

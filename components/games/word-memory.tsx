@@ -5,6 +5,7 @@ import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Brain, Timer, Type, CircleCheck as CheckCircle } from 'lucide-react-native';
+import { BackButton } from '../ui/back-button';
 
 const WORD_POOL = [
   "apple", "bottle", "cloud", "dance", "eagle", "forest", "grape", "honey",
@@ -73,6 +74,7 @@ export function WordMemoryGame() {
         colors={['#00cc88', '#00eea1']}
         style={styles.gradient}
       >
+        <BackButton />
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.iconContainer}>
             <Type size={48} color="#ffffff" />

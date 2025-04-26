@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { Button } from '../ui/button';
 import { Brain, Timer, Target, TriangleAlert as AlertTriangle } from 'lucide-react-native';
+import { BackButton } from '../ui/back-button';
 
 const COLORS = ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'] as const;
 type ColorType = typeof COLORS[number];
@@ -83,6 +84,7 @@ export function StroopChallengeGame() {
         colors={['#ff6b6b', '#ff8e8e']}
         style={styles.gradient}
       >
+        <BackButton />
         <View style={styles.content}>
           <View style={styles.iconContainer}>
             <Brain size={48} color="#ffffff" />

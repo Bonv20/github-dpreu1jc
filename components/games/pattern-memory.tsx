@@ -12,6 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Button } from '../ui/button';
 import { Brain, Timer, Heart, Target } from 'lucide-react-native';
+import { BackButton } from '../ui/back-button';
 
 const { width } = Dimensions.get('window');
 const TILE_SIZE = Math.min(width * 0.4, 150);
@@ -120,6 +121,7 @@ export function PatternMemoryGame() {
         colors={['#845ec2', '#a178df']}
         style={styles.gradient}
       >
+        <BackButton />
         <View style={styles.content}>
           <View style={styles.iconContainer}>
             <Brain size={48} color="#ffffff" />
